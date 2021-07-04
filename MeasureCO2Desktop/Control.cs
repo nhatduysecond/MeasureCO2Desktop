@@ -49,15 +49,15 @@ namespace MeasureCO2Desktop
                 labelSensor.ForeColor = Color.Red;
             }
             checkData = false;
-
         }
-
+        
         //hàm kết nối mạng và mqtt broker
         private void ketnoi()
         {
             bool networkStatus = NetworkInterface.GetIsNetworkAvailable(); //hàm check kết nối mạng wifi/internet
+            
             //thong tin ket noi mqtt broker
-            string mqtt_server = "broker.hivemq.com";  //broker.emqx.io
+            string mqtt_server = "broker.hivemq.com";   //broker.emqx.io 
             //string mqtt_server = "broker.emqx.io";
             var mqtt_port = Convert.ToInt32(1883);
             string[] topic = { "CO2Measurement/statusSensor",

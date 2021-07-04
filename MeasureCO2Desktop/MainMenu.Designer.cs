@@ -77,6 +77,8 @@ namespace MeasureCO2Desktop
             this.btnInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.btnInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnInfo.FlatAppearance.BorderSize = 0;
+            this.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Highlight;
             this.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInfo.ForeColor = System.Drawing.Color.Gainsboro;
@@ -93,6 +95,8 @@ namespace MeasureCO2Desktop
             this.btnModify.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.btnModify.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnModify.FlatAppearance.BorderSize = 0;
+            this.btnModify.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnModify.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Highlight;
             this.btnModify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModify.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModify.ForeColor = System.Drawing.Color.Gainsboro;
@@ -109,6 +113,8 @@ namespace MeasureCO2Desktop
             this.btnChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.btnChart.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnChart.FlatAppearance.BorderSize = 0;
+            this.btnChart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnChart.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Highlight;
             this.btnChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChart.ForeColor = System.Drawing.Color.Gainsboro;
@@ -125,6 +131,8 @@ namespace MeasureCO2Desktop
             this.btnControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.btnControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnControl.FlatAppearance.BorderSize = 0;
+            this.btnControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnControl.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Highlight;
             this.btnControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
@@ -150,6 +158,7 @@ namespace MeasureCO2Desktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panelSideLeft);
