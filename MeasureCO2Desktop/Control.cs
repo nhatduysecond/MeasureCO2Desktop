@@ -262,8 +262,10 @@ namespace MeasureCO2Desktop
         {
             //tao ten file log_ngay_thang_nam.txt
             DateTime date = DateTime.Now;
-            string filepath = "D:\\log_"+date.Day+"_"+date.Month+"_"+date.Year+".txt";
-            File.AppendAllLines(filepath, value);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop"+ @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
+            //string filepath = "D:\\log_"+date.Day+"_"+date.Month+"_"+date.Year+".txt";
+            File.AppendAllLines(filePath, value);
         }
     }
 

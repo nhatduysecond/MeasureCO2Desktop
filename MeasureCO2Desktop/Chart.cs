@@ -9,10 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
 using System.IO;
-using LiveCharts;
-using LiveCharts.Configurations;
-using LiveCharts.Wpf;
-using LiveCharts.Definitions.Charts;
 
 namespace MeasureCO2Desktop
 {
@@ -24,8 +20,10 @@ namespace MeasureCO2Desktop
             InitializeComponent();
             //lấy file log
             DateTime date = DateTime.Now;
-            string filepath = "D:\\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
-            FileStream f = new FileStream(filepath, FileMode.OpenOrCreate);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
+            //string filepath = "D:\\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
+            FileStream f = new FileStream(filePath, FileMode.OpenOrCreate);
             StreamReader sw = new StreamReader(f);
             //tạo thông số cho biểu đồ
             DateTime dt = DateTime.Today;

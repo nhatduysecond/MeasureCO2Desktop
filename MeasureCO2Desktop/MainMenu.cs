@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.IO.Ports;
-using System.Xml;
+using System.Diagnostics;
 
 namespace MeasureCO2Desktop
 {
@@ -22,6 +21,24 @@ namespace MeasureCO2Desktop
         public MainMenu()
         {
             InitializeComponent();
+            //di chuyen file den thu muc dinh truoc
+            string fullPath = Directory.GetCurrentDirectory();
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\MeasureCO2Desktop";
+            if (fullPath != filePath)
+            {
+                string[] files = Directory.GetFiles(fullPath);
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                foreach (string file in files)
+                {
+                    string fileName = Path.GetFileName(file);
+                    string deshFile = Path.Combine(filePath, fileName);
+                    File.Copy(file, deshFile, true);
+                }
+            }
+            //cau hinh cac button luc vua mo chuong trinh
             control.TopLevel = false;
             control.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(control);
@@ -31,7 +48,16 @@ namespace MeasureCO2Desktop
             btnModify.BackColor = Color.FromArgb(11, 7, 17);
             control.Show();
         }
-        
+
+        public MainMenu(bool shutdown)
+        {
+            InitializeComponent();
+            if (shutdown==true)
+            {
+                this.Close();
+            }
+        }
+
         private void loadForm(object Form)
         {
             Form f = Form as Form;
@@ -39,7 +65,7 @@ namespace MeasureCO2Desktop
             {
                 panelChildForm.Controls.RemoveAt(0);
             }
-            
+
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(f);

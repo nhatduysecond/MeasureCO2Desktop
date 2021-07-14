@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Xml;
+using System.Diagnostics;
+using System.IO;
 
 namespace MeasureCO2Desktop
 {
     public partial class Modify : Form
     {
         bool canUpdate;
+        
         public Modify()
         {
             InitializeComponent();
             System.Windows.Forms.Timer atimer = new System.Windows.Forms.Timer();
             atimer.Tick += new EventHandler(OnTimeEvent); //chay hàm thực hiện OnTimeEvent
-            atimer.Interval = 1000*60; //moi 15 ngày thuc hien viec gi do
+            atimer.Interval = 1000*3600; //moi 1 phut thuc hien viec gi do
             atimer.Start();
             checkVersion();
         }
@@ -34,11 +30,8 @@ namespace MeasureCO2Desktop
         {
             if (canUpdate == true)
             {
-
-                WebClient webclient = new WebClient();
-                string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                webclient.DownloadFileAsync(new Uri("https://duydang.xyz/CO2/MeasureCO2Desktop.zip"), @"C:\\Users\nhatd\Downloads\MeasureCO2Desktop.zip");
-                webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                new LoadFormProgress("Đang tải...").Show();
+                //new MainMenu(true);
             }
             else
             {
@@ -46,14 +39,7 @@ namespace MeasureCO2Desktop
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            Form loadForm = new LoadFormProgress("Đang tải...",e.ProgressPercentage);
-            
-            //Form load = new LoadFormProgress();
-            loadForm.Show();
-            //loadForm.ShowDialog();
-        }
+        
         //hàm kiểm tra phiê bản mới trên web
         public void checkVersion()
         {

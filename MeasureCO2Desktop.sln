@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureCO2Desktop", "MeasureCO2Desktop\MeasureCO2Desktop.csproj", "{43B179DC-9BC6-466A-B46A-2D7BB3D4824C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{88CBFA00-FC5D-41B7-B144-DD359069F9DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{43B179DC-9BC6-466A-B46A-2D7BB3D4824C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43B179DC-9BC6-466A-B46A-2D7BB3D4824C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43B179DC-9BC6-466A-B46A-2D7BB3D4824C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CBFA00-FC5D-41B7-B144-DD359069F9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CBFA00-FC5D-41B7-B144-DD359069F9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CBFA00-FC5D-41B7-B144-DD359069F9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CBFA00-FC5D-41B7-B144-DD359069F9DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

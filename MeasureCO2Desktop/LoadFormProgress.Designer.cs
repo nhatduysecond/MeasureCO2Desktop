@@ -57,7 +57,9 @@ namespace MeasureCO2Desktop
             this.Controls.Add(this.labelLoad);
             this.Controls.Add(this.barLoad);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(550, 220);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(550, 220);
             this.Name = "LoadFormProgress";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
