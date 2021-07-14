@@ -38,6 +38,7 @@ namespace MeasureCO2Desktop
             // 
             // btnUpdate
             // 
+            this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnUpdate.Location = new System.Drawing.Point(15, 57);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(133, 23);
@@ -49,6 +50,7 @@ namespace MeasureCO2Desktop
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 13);
@@ -58,6 +60,7 @@ namespace MeasureCO2Desktop
             // labelOldVersion
             // 
             this.labelOldVersion.AutoSize = true;
+            this.labelOldVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.labelOldVersion.Location = new System.Drawing.Point(113, 9);
             this.labelOldVersion.Name = "labelOldVersion";
             this.labelOldVersion.Size = new System.Drawing.Size(35, 13);
@@ -67,6 +70,7 @@ namespace MeasureCO2Desktop
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.label2.Location = new System.Drawing.Point(12, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
@@ -76,6 +80,7 @@ namespace MeasureCO2Desktop
             // labelNewVersion
             // 
             this.labelNewVersion.AutoSize = true;
+            this.labelNewVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.labelNewVersion.Location = new System.Drawing.Point(113, 32);
             this.labelNewVersion.Name = "labelNewVersion";
             this.labelNewVersion.Size = new System.Drawing.Size(35, 13);
@@ -86,7 +91,7 @@ namespace MeasureCO2Desktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(54)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(568, 442);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelNewVersion);

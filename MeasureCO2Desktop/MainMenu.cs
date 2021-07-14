@@ -18,6 +18,10 @@ namespace MeasureCO2Desktop
         Form chart = new Chart();
         Form modify = new Modify();
         Form info = new Info();
+
+        int mov;
+        int movX;
+        int movY;
         public MainMenu()
         {
             InitializeComponent();
@@ -42,10 +46,12 @@ namespace MeasureCO2Desktop
             control.TopLevel = false;
             control.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(control);
-            btnControl.BackColor = SystemColors.Highlight;
-            btnChart.BackColor = Color.FromArgb(11, 7, 17);
-            btnInfo.BackColor = Color.FromArgb(11, 7, 17);
-            btnModify.BackColor = Color.FromArgb(11, 7, 17);
+            btnControl.BackColor = Color.FromArgb(46, 54, 73);
+            btnChart.BackColor = Color.FromArgb(24, 30, 54);
+            btnInfo.BackColor = Color.FromArgb(24, 30, 54);
+            btnModify.BackColor = Color.FromArgb(24, 30, 54);
+            pnlNav.Top = btnControl.Top;
+            pnlNav.Height = btnControl.Height;
             control.Show();
         }
 
@@ -72,7 +78,7 @@ namespace MeasureCO2Desktop
             //this.panelChildForm.Tag = f;
             f.Show();
         }
-
+        #region button
         private void btnControl_Click(object sender, EventArgs e)
         {
             //loadForm(new Control());
@@ -85,10 +91,12 @@ namespace MeasureCO2Desktop
             control.TopLevel = false;
             control.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(control);
-            btnControl.BackColor = SystemColors.Highlight;
-            btnChart.BackColor = Color.FromArgb(11, 7, 17);
-            btnInfo.BackColor = Color.FromArgb(11, 7, 17);
-            btnModify.BackColor = Color.FromArgb(11, 7, 17);
+            btnControl.BackColor = Color.FromArgb(46, 54, 73); ;
+            btnChart.BackColor = Color.FromArgb(24, 30, 54);
+            btnInfo.BackColor = Color.FromArgb(24, 30, 54);
+            btnModify.BackColor = Color.FromArgb(24, 30, 54);
+            pnlNav.Height = btnControl.Height;
+            pnlNav.Top = btnControl.Top;
             control.Show();
         }
 
@@ -104,10 +112,12 @@ namespace MeasureCO2Desktop
             chart.TopLevel = false;
             chart.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(chart);
-            btnControl.BackColor = Color.FromArgb(11, 7, 17);
-            btnChart.BackColor = SystemColors.Highlight;
-            btnInfo.BackColor = Color.FromArgb(11, 7, 17);
-            btnModify.BackColor = Color.FromArgb(11, 7, 17);
+            btnControl.BackColor = Color.FromArgb(24, 30, 54);
+            btnChart.BackColor = Color.FromArgb(46, 54, 73); ;
+            btnInfo.BackColor = Color.FromArgb(24, 30, 54);
+            btnModify.BackColor = Color.FromArgb(24, 30, 54);
+            pnlNav.Height = btnChart.Height;
+            pnlNav.Top = btnChart.Top;
             chart.Show();
         }
 
@@ -123,10 +133,12 @@ namespace MeasureCO2Desktop
             modify.TopLevel = false;
             modify.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(modify);
-            btnControl.BackColor = Color.FromArgb(11, 7, 17);
-            btnChart.BackColor = Color.FromArgb(11, 7, 17);
-            btnInfo.BackColor = Color.FromArgb(11, 7, 17);
-            btnModify.BackColor = SystemColors.Highlight;
+            btnControl.BackColor = Color.FromArgb(24, 30, 54);
+            btnChart.BackColor = Color.FromArgb(24, 30, 54);
+            btnInfo.BackColor = Color.FromArgb(24, 30, 54);
+            btnModify.BackColor = Color.FromArgb(46, 54, 73); ;
+            pnlNav.Height = btnModify.Height;
+            pnlNav.Top = btnModify.Top;
             modify.Show();
         }
 
@@ -141,11 +153,45 @@ namespace MeasureCO2Desktop
             info.TopLevel = false;
             info.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(info);
-            btnControl.BackColor = Color.FromArgb(11, 7, 17);
-            btnChart.BackColor = Color.FromArgb(11, 7, 17);
-            btnInfo.BackColor = SystemColors.Highlight;
-            btnModify.BackColor = Color.FromArgb(11, 7, 17);
+            btnControl.BackColor = Color.FromArgb(24, 30, 54);
+            btnChart.BackColor = Color.FromArgb(24, 30, 54);
+            btnInfo.BackColor = Color.FromArgb(46, 54, 73); ;
+            btnModify.BackColor = Color.FromArgb(24, 30, 54);
+            pnlNav.Height = btnInfo.Height;
+            pnlNav.Top = btnInfo.Top;
             info.Show();
         }
+
+        private void btnX_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            control.Close();
+            chart.Close();
+            info.Close();
+            modify.Close();
+        }
+        #endregion button
+        //tao title bar co the di chuyen cho panel
+        #region panel to titlebar can move form
+        private void panelTop_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movX = e.X;
+            movY = e.Y;
+        }
+
+        private void panelTop_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+        }
+
+        private void panelTop_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
+        }
+        #endregion panel to titlebar can move form
     }
 }
