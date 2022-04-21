@@ -10,7 +10,9 @@ namespace MeasureCO2Desktop
     public partial class Modify : Form
     {
         bool canUpdate;
-        
+        public string ver = "0.3"; //phiên bản hiện tại, update phải thay lại
+        public string newVer { get; set; }
+
         public Modify()
         {
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace MeasureCO2Desktop
         //hàm kiểm tra phiê bản mới trên web
         public void checkVersion()
         {
-            string ver = "0.2"; //phiên bản hiện tại, update phải thay lại
+            
             labelOldVersion.Text = ver;
             string url = "https://duydang.xyz/CO2/CO2DesktopVersion.xml"; //nơi check phiên bản
             XmlTextReader reader = new XmlTextReader(url); //đọc file xml trên web
@@ -67,7 +69,6 @@ namespace MeasureCO2Desktop
 
             }
         }
-        public string ver { get; set; }
-        public string newVer { get; set; }
+        
     }
 }

@@ -15,6 +15,8 @@ namespace MeasureCO2Desktop
         public Info()
         {
             InitializeComponent();
+            Modify modify = new Modify();
+            label2.Text = "Version " + modify.ver;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

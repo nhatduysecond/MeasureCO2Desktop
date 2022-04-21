@@ -147,5 +147,10 @@ namespace MeasureCO2Desktop
             btnModify.BackColor = Color.FromArgb(11, 7, 17);
             info.Show();
         }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

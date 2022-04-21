@@ -27,7 +27,11 @@ namespace MeasureCO2Desktop
             btnOn.Enabled = false;
             btnOff.Enabled = false;
             btnSet.Enabled = false;
+            btnSetPM10.Enabled = false;
+            btnSetPM25.Enabled = false;
             textPpm.Enabled = false;
+            textSetPM10.Enabled = false;
+            textSetPM25.Enabled = false ;
 
             //timer
             System.Windows.Forms.Timer atimer = new System.Windows.Forms.Timer();
@@ -43,10 +47,14 @@ namespace MeasureCO2Desktop
             {
                 labelDevice.Text = "Offline";
                 labelMachine.Text = "Offline";
+                labelLight.Text = "Offline";
                 labelSensor.Text = "Offline";
+                labelSensorBui.Text = "Offline";
                 labelDevice.ForeColor = Color.Red;
                 labelMachine.ForeColor = Color.Red;
                 labelSensor.ForeColor = Color.Red;
+                labelSensorBui.ForeColor = Color.Red;
+                labelLight.ForeColor = Color.Red;
             }
             checkData = false;
         }
@@ -61,11 +69,15 @@ namespace MeasureCO2Desktop
             //string mqtt_server = "broker.emqx.io";
             var mqtt_port = Convert.ToInt32(1883);
             string[] topic = { "CO2Measurement/statusSensor",
+                "CO2Measurement/statusSensorBui",
                 "CO2Measurement/statusMachine",
+                "CO2Measurement/statusLight",
                 "CO2Measurement/statusDevice",
                 "CO2Measurement/statusMode",
-                "CO2Measurement/Data" };
-            byte[] qosLevel = { 2, 2, 2, 2, 2 };
+                "CO2Measurement/Data",
+                "CO2Measurement/PM10",
+                "CO2Measurement/PM2.5"};
+            byte[] qosLevel = { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
             //bat dau ket noi mang
             if (networkStatus == true)
             {
@@ -106,21 +118,42 @@ namespace MeasureCO2Desktop
         //function when receive messsage
         private void Client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            this.Invoke((MethodInvoker)delegate ()
+            if(this.IsHandleCreated)
             {
-                string ReceiveMessage = Encoding.UTF8.GetString(e.Message);
-                string ReceiveTopic = e.Topic;
-                stateNow(ReceiveMessage, ReceiveTopic);
-                string[] datas;
-                if (e.Topic == "CO2Measurement/Data")
+                this.Invoke((MethodInvoker)delegate ()
                 {
-                    textData.AppendText(ReceiveMessage + Environment.NewLine);
-                    checkData = true; //kiểm tra system có hoạt động hay ko ở hàm on timer
-                    datas = new string[] { ReceiveMessage };
-                    file(datas);
-                }
-                
-            });
+                    string ReceiveMessage = Encoding.UTF8.GetString(e.Message);
+                    string ReceiveTopic = e.Topic;
+                    stateNow(ReceiveMessage, ReceiveTopic);
+                    string[] datas, dataPM25, dataPM10;
+                    if (e.Topic == "CO2Measurement/Data")
+                    {
+                        textData.AppendText(ReceiveMessage + Environment.NewLine);
+                        checkData = true; //kiểm tra system có hoạt động hay ko ở hàm on timer
+                        datas = new string[] { ReceiveMessage };
+                        file(datas, 0);
+                    }
+                    if (e.Topic == "CO2Measurement/PM2.5")
+                    {
+                        textDataBuiPM25.AppendText(ReceiveMessage + Environment.NewLine);
+                        checkData = true;
+                        dataPM25 = new string[] { ReceiveMessage };
+                        file(dataPM25, 1);
+                    }
+                    if (e.Topic == "CO2Measurement/PM10")
+                    {
+                        textDataBuiPM10.AppendText(ReceiveMessage + Environment.NewLine);
+                        checkData = true;
+                        dataPM10 = new string[] { ReceiveMessage };
+                        file(dataPM10, 2);
+                    }
+                });
+            }
+            else
+            {
+                return;
+            }
+            
         }
         //hàm đổi trạng thái label nằm trong callback
         private void stateNow(string ReceiveMessage, string e)
@@ -153,6 +186,19 @@ namespace MeasureCO2Desktop
                     labelSensor.ForeColor = Color.Red;
                 }
             }
+            if(e == "CO2Measurement/statusSensorBui")
+            {
+                if(ReceiveMessage == "1")
+                {
+                    labelSensorBui.Text = "Online";
+                    labelSensorBui.ForeColor = Color.Green;
+                }
+                else
+                {
+                    labelSensorBui.Text = "Offline";
+                    labelSensorBui.ForeColor = Color.Red;
+                }
+            }
             if (e == "CO2Measurement/statusMachine")
             {
                 if (ReceiveMessage == "1")
@@ -166,17 +212,30 @@ namespace MeasureCO2Desktop
                     labelMachine.ForeColor = Color.Red;
                 }
             }
+            if (e == "CO2Measurement/statusLight")
+            {
+                if (ReceiveMessage == "1")
+                {
+                    labelLight.Text = "Online";
+                    labelLight.ForeColor = Color.Green;
+                }
+                else
+                {
+                    labelLight.Text = "Offline";
+                    labelLight.ForeColor = Color.Red;
+                }
+            }
             if (e == "CO2Measurement/statusMode")
             {
                 if (ReceiveMessage == "1")
                 {
                     labelStatus.Text = "Manual";
-                    labelStatus.ForeColor = Color.Green;
+                    labelStatus.ForeColor = Color.Yellow;
                 }
                 else
                 {
                     labelStatus.Text = "Auto";
-                    labelStatus.ForeColor = Color.Yellow;
+                    labelStatus.ForeColor = Color.Green;
                 }
             }
             DisableButton();
@@ -191,8 +250,14 @@ namespace MeasureCO2Desktop
                 btnManual.Enabled = true;
                 btnOn.Enabled = false;
                 btnOff.Enabled = false;
+                btnLightOff.Enabled = false;
+                btnLightOn.Enabled = false;
                 textPpm.Enabled = true;
+                textSetPM10.Enabled = true;
+                textSetPM25.Enabled = true;
                 btnSet.Enabled = true;
+                btnSetPM10.Enabled = true;
+                btnSetPM25.Enabled = true;
             }
             if (labelStatus.Text == "Manual")
             {
@@ -200,8 +265,14 @@ namespace MeasureCO2Desktop
                 btnManual.Enabled = false;
                 btnOn.Enabled = true;
                 btnOff.Enabled = true;
+                btnLightOn.Enabled= true;
+                btnLightOff.Enabled = true;
                 btnSet.Enabled = false;
                 textPpm.Enabled = false;
+                textSetPM25.Enabled = false;
+                textSetPM10.Enabled = false;
+                btnSetPM25.Enabled = false;
+                btnSetPM10.Enabled= false;
             }
             if (labelStatus.Text == "Đang load...")
             {
@@ -217,8 +288,14 @@ namespace MeasureCO2Desktop
             btnAuto.Enabled = true;
             btnOn.Enabled = true;
             btnOff.Enabled = true;
+            btnLightOff.Enabled = true;
+            btnLightOn.Enabled = true;  
             btnSet.Enabled = false;
+            btnSetPM10.Enabled = false;
+            btnSetPM25.Enabled = false;
             textPpm.Enabled = false;
+            textSetPM10.Enabled = false;
+            textSetPM25.Enabled = false;
             //labelStatus.Text = "Manual";
             client.Publish("CO2Measurement/mode", Encoding.UTF8.GetBytes("manual"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
         }
@@ -229,8 +306,14 @@ namespace MeasureCO2Desktop
             btnAuto.Enabled = false;
             btnOn.Enabled = false;
             btnOff.Enabled = false;
+            btnLightOn.Enabled = false;
+            btnLightOff.Enabled = false;
             textPpm.Enabled = true;
+            textSetPM10.Enabled = true;
+            textSetPM25.Enabled = true;
             btnSet.Enabled = true;
+            btnSetPM25.Enabled = true;
+            btnSetPM10.Enabled = true;
             //labelStatus.Text = "Auto";
             client.Publish("CO2Measurement/mode", Encoding.UTF8.GetBytes("auto"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
         }
@@ -244,6 +327,15 @@ namespace MeasureCO2Desktop
         {
             client.Publish("CO2Measurement/machine", Encoding.UTF8.GetBytes("off"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
         }
+        private void btnLightOn_Click(object sender, EventArgs e)
+        {
+            client.Publish("CO2Measurement/setLight", Encoding.UTF8.GetBytes("1"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
+        }
+
+        private void btnLightOff_Click(object sender, EventArgs e)
+        {
+            client.Publish("CO2Measurement/setLight", Encoding.UTF8.GetBytes("0"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
+        }
 
         private void btnSet_Click(object sender, EventArgs e)
         {
@@ -255,17 +347,52 @@ namespace MeasureCO2Desktop
             { client.Publish("CO2Measurement/setPPMAuto", Encoding.UTF8.GetBytes(textPpm.Text), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true); }
 
         }
+        private void btnSetPM25_Click(object sender, EventArgs e)
+        {
+            if (textSetPM25.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thông số bụi PM2.5");
+            }
+            else
+            { client.Publish("CO2Measurement/setPM25Auto", Encoding.UTF8.GetBytes(textSetPM25.Text), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true); }
+
+        }
+        private void btnSetPM10_Click(object sender, EventArgs e)
+        {
+            if (textSetPM10.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thông số bụi PM10");
+            }
+            else
+            { client.Publish("CO2Measurement/setPM10Auto", Encoding.UTF8.GetBytes(textSetPM10.Text), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true); }
+
+        }
         #endregion button
 
         //ghi file log
-        private void file(string[] value)
+        private void file(string[] value, int addr)
         {
             //tao ten file log_ngay_thang_nam.txt
             DateTime date = DateTime.Now;
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
-                + @"\MeasureCO2Desktop"+ @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
-            //string filepath = "D:\\log_"+date.Day+"_"+date.Month+"_"+date.Year+".txt";
-            File.AppendAllLines(filePath, value);
+            if(addr == 0)
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + ".txt";
+                File.AppendAllLines(filePath, value);
+            }
+            else if(addr == 1)
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + "_25.txt";
+                File.AppendAllLines(filePath, value);
+            }
+            else if(addr == 2)
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + "_10.txt";
+                File.AppendAllLines(filePath, value);
+            }
+            
         }
     }
 
