@@ -16,7 +16,7 @@ namespace MeasureCO2Desktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            Application.Run(new Main());
         }
     }
 }

@@ -1,0 +1,7 @@
+cải tiến chương trình trên máy tính: 
+ghi file kèm thời gian thực
+mở file và ghi vào cuối file theo ngày, định dạng : thời gian - CO2 - PM10 - PM2.5
+giao diện sẽ cải tiến sau, chart sẽ real-time theo dữ liệu.
+
+Chương trình nhúng: 
+sửa lại tần số lấy mẫu cảm biến, trung bình cộng 5 lần sẽ publish 1 lần, cải thiện cảm biến CO2 và tiệm cận

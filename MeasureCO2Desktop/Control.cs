@@ -56,7 +56,7 @@ namespace MeasureCO2Desktop
                 labelSensorBui.ForeColor = Color.Red;
                 labelLight.ForeColor = Color.Red;
             }
-            checkData = false;
+            //checkData = false;
         }
         
         //hàm kết nối mạng và mqtt broker
@@ -125,12 +125,14 @@ namespace MeasureCO2Desktop
                     string ReceiveMessage = Encoding.UTF8.GetString(e.Message);
                     string ReceiveTopic = e.Topic;
                     stateNow(ReceiveMessage, ReceiveTopic);
-                    string[] datas, dataPM25, dataPM10;
+                    string[] datas, dataPM25, dataPM10, finalDatas;
+                    string data ="", datapm25="", datapm10="", finalData;
                     if (e.Topic == "CO2Measurement/Data")
                     {
                         textData.AppendText(ReceiveMessage + Environment.NewLine);
                         checkData = true; //kiểm tra system có hoạt động hay ko ở hàm on timer
                         datas = new string[] { ReceiveMessage };
+                        data = ReceiveMessage;
                         file(datas, 0);
                     }
                     if (e.Topic == "CO2Measurement/PM2.5")
@@ -138,6 +140,7 @@ namespace MeasureCO2Desktop
                         textDataBuiPM25.AppendText(ReceiveMessage + Environment.NewLine);
                         checkData = true;
                         dataPM25 = new string[] { ReceiveMessage };
+                        datapm25 = ReceiveMessage;
                         file(dataPM25, 1);
                     }
                     if (e.Topic == "CO2Measurement/PM10")
@@ -145,8 +148,12 @@ namespace MeasureCO2Desktop
                         textDataBuiPM10.AppendText(ReceiveMessage + Environment.NewLine);
                         checkData = true;
                         dataPM10 = new string[] { ReceiveMessage };
+                        datapm10 = ReceiveMessage;
                         file(dataPM10, 2);
                     }
+                    finalData = DateTime.Now.ToString() + " " +data+" " + datapm25 + " " + datapm10;
+                    finalDatas = new string[] { finalData };
+                    file(finalDatas, 3);
                 });
             }
             else
@@ -392,7 +399,12 @@ namespace MeasureCO2Desktop
                 + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + "_10.txt";
                 File.AppendAllLines(filePath, value);
             }
-            
+            else if (addr == 3)
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                + @"\MeasureCO2Desktop" + @"\log_" + date.Day + "_" + date.Month + "_" + date.Year + "_final.txt";
+                File.AppendAllLines(filePath, value);
+            }
         }
     }
 
